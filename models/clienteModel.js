@@ -2,7 +2,7 @@
 
 const db = require("../config/firebase");
 
-const ref = db.ref("categorias");
+const ref = db.ref("clientes");
 
 /* =====================================================
    LISTAR
@@ -16,7 +16,7 @@ async function listar() {
     return Object.keys(dados).map(id => ({
         id,
         nome: dados[id].nome,
-        descricao: dados[id].descricao
+        email: dados[id].email
 
     }));
 }
@@ -24,12 +24,12 @@ async function listar() {
 /* =====================================================
    SALVAR
 ===================================================== */
-async function salvar(categoria) {
+async function salvar(cliente) {
     const novaRef = ref.push();
 
     await novaRef.set({
-        nome: categoria.nome,
-        descricao: categoria.descricao
+        nome: cliente.nome,
+        email: cliente.email
     });
 }
 
@@ -50,10 +50,10 @@ async function buscarPorId(id) {
 /* =====================================================
    EDITAR
 ===================================================== */
-async function editar(id, novaCategoria) {
+async function editar(id, novoCliente) {
     await ref.child(id).update({
-        nome: novaCategoria.nome,
-        descricao: novaCategoria.descricao
+        nome: novoCliente.nome,
+        email: novoCliente.email
     });
 }
 

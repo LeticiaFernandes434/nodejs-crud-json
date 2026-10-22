@@ -19,8 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // ROTAS
-const categoriaRoutes = require("./routes/categoriaRoutes");
-app.use("/categorias", categoriaRoutes);
+const clienteRoutes = require("./routes/clienteRoutes");
+app.use("/clientes", clienteRoutes);
 
 // INDEX PRINCIPAL
 app.get("/", (req, res) => {

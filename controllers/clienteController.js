@@ -1,41 +1,41 @@
 // Importa o model de categorias
-const model = require("../models/categoriaModel");
+const model = require("../models/clienteModel");
 
 /* =====================================================
-   LISTAR CATEGORIAS
+   LISTAR CLIENTES
 ===================================================== */
 exports.index = async (req, res) => {
-  const categorias = await model.listar();
+  const clientes = await model.listar();
 
-  res.render("categorias/index", {
-    categorias,
-    categoriaEditar: null,
+  res.render("clientes/index", {
+    clientes,
+    clienteEditar: null,
   });
 };
 
 /* =====================================================
-   SALVAR NOVA CATEGORIA
+   SALVAR NOVO CLIENTE
 ===================================================== */
 exports.salvar = async (req, res) => {
   await model.salvar({
     nome: req.body.nome.toUpperCase(),
-    descricao: req.body.descricao,
+    email: req.body.email,
   });
 
-  res.redirect("/categorias");
+  res.redirect("/clientes");
 };
 
 /* =====================================================
    FORM EDITAR
 ===================================================== */
 exports.formEditar = async (req, res) => {
-  const categorias = await model.listar();
+  const clientes = await model.listar();
 
-  const categoriaEditar = await model.buscarPorId(req.params.id);
+  const clienteEditar = await model.buscarPorId(req.params.id);
 
-  res.render("categorias/index", {
-    categorias,
-    categoriaEditar,
+  res.render("clientes/index", {
+    clientes,
+    clienteEditar,
   });
 };
 
@@ -45,10 +45,10 @@ exports.formEditar = async (req, res) => {
 exports.editar = async (req, res) => {
   await model.editar(req.params.id, {
     nome: req.body.nome.toUpperCase(),
-    descricao: req.body.descricao,
+    email: req.body.email,
   });
 
-  res.redirect("/categorias");
+  res.redirect("/clientes");
 };
 
 /* =====================================================
@@ -57,7 +57,7 @@ exports.editar = async (req, res) => {
 exports.excluir = async (req, res) => {
   await model.excluir(req.params.id);
 
-  res.redirect("/categorias");
+  res.redirect("/clientes");
 };
 
 /* =====================================================
@@ -65,14 +65,14 @@ exports.excluir = async (req, res) => {
 ===================================================== */
 exports.api = async (req, res) => {
   try {
-    const categorias = await model.listar();
+    const clientes = await model.listar();
 
-    res.json(categorias);
+    res.json(clientes);
   } catch (erro) {
     console.error(erro);
 
     res.status(500).json({
-      erro: "Erro ao buscar categorias",
+      erro: "Erro ao buscar clientes",
     });
   }
 };
